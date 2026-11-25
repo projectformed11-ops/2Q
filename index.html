@@ -1,0 +1,433 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>แบบประเมินโรคซึมเศร้า 2Q</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Layout: one centered column. Yellow ground (60%), pink panels (30%), brown ink and actions (10%). */
+  :root {
+    --yellow: #fcf7d9;
+    --yellow-lift: #fffdf0;
+    --pink: #f6d8d6;
+    --brown: #604734;
+    --rule-dark: rgba(96, 71, 52, 0.28);
+    --brown-line: rgba(96, 71, 52, 0.22);
+    --rule-light: rgba(252, 247, 217, 0.4);
+    --font-display: "Mali", "Noto Sans Thai", system-ui, sans-serif;
+    --font-body: "Noto Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--yellow);
+    color: var(--brown);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 3.5rem;
+  }
+
+  .wrap {
+    max-width: 640px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .wrap > * { min-width: 0; }
+
+  .eyebrow {
+    align-self: flex-start;
+    margin: 0;
+    padding: 0.2rem 0.9rem;
+    background: var(--pink);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 6vw, 2.2rem);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .intro { margin: 0; max-width: 60ch; }
+
+  form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  /* การ์ดคำถามสไตล์เดียวกับ 9Q: เลขข้อเป็นวงกลม ตัวเลือกเป็นปุ่มแถวเดียว */
+  fieldset {
+    margin: 0;
+    padding: 20px 20px 18px;
+    min-width: 0;
+    border: 0;
+    border-radius: 18px;
+    background: var(--pink);
+  }
+
+  legend {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 14px;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .q-line { display: flex; gap: 12px; align-items: flex-start; }
+
+  legend .no {
+    flex: none;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 6px;
+    display: grid;
+    place-items: center;
+    background: var(--brown);
+    color: var(--yellow);
+    border-radius: 50%;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .choices {
+    clear: both;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .choice { position: relative; display: flex; }
+
+  .choice input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .choice label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 14px;
+    border: 2px solid var(--brown-line);
+    border-radius: 12px;
+    background: var(--yellow);
+    font-weight: 500;
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .choice input:hover + label { border-color: var(--brown); }
+
+  .choice input:checked + label {
+    background: var(--brown);
+    color: var(--yellow);
+    border-color: var(--brown);
+    font-weight: 700;
+  }
+
+  .choice input:focus-visible + label {
+    outline: 3px solid var(--brown);
+    outline-offset: 2px;
+  }
+
+  .progress-block { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .progress-text {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .track {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--pink);
+    overflow: hidden;
+  }
+
+  .fill {
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    background: var(--brown);
+    transition: width 0.25s ease;
+  }
+
+  .btn {
+    appearance: none;
+    cursor: pointer;
+    padding: 0.9rem 1.6rem;
+    border: 2px solid var(--brown);
+    border-radius: 999px;
+    background: var(--brown);
+    color: var(--yellow);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+
+  .btn:hover:not(:disabled) { filter: brightness(1.15); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn:focus-visible { outline: 3px solid var(--brown); outline-offset: 3px; }
+
+  .btn-outline {
+    background: transparent;
+    color: inherit;
+    border-color: currentColor;
+  }
+
+  .note-small { margin: 0; font-size: 0.88rem; opacity: 0.85; }
+
+  .result {
+    padding: 1.75rem 1.5rem 1.5rem;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .result { border: 3px solid transparent; }
+  .result.is-normal { background: var(--pink); color: var(--brown); --rule: var(--rule-dark); }
+  .result.is-risk { background: var(--pink); color: var(--brown); --rule: var(--rule-dark); border-color: var(--brown); }
+
+  .result .label {
+    margin: 0;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .result h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 5.5vw, 1.9rem);
+    line-height: 1.45;
+    text-wrap: balance;
+  }
+
+  .result h2:focus { outline: none; }
+
+  .answers { margin: 0; border-top: 1px solid var(--rule); }
+
+  .answers .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .answers dt { font-size: 0.95rem; }
+  .answers dd { margin: 0; font-weight: 600; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  .result .btn-solid { background: var(--brown); color: var(--yellow); border-color: var(--brown); }
+
+  @media (max-width: 480px) {
+    .btn { width: 100%; }
+    .actions .btn { flex: 1 1 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fill, .choice label { transition: none; }
+  }
+</style>
+
+<main class="wrap">
+  <header style="display:flex;flex-direction:column;gap:0.9rem">
+    <p class="eyebrow">แบบคัดกรองเบื้องต้น</p>
+    <h1>แบบประเมินโรคซึมเศร้า (2Q)</h1>
+    <p class="intro">ตอบ 2 คำถามสั้น ๆ ตามความรู้สึกของท่านในช่วง 2 สัปดาห์ที่ผ่านมา ต้องตอบให้ครบทุกข้อจึงจะดูผลได้</p>
+  </header>
+
+  <section id="formSection" aria-label="แบบประเมิน">
+    <form id="form2q" novalidate>
+      <fieldset>
+        <legend>
+          <span class="q-line"><span class="no" aria-label="ข้อ 1">1</span><span>ใน 2 สัปดาห์ที่ผ่านมา รวมวันนี้ ท่านรู้สึก หดหู่ เศร้า หรือท้อแท้ สิ้นหวัง</span></span>
+        </legend>
+        <div class="choices">
+          <div class="choice">
+            <input type="radio" id="q1-yes" name="q1" value="มี">
+            <label for="q1-yes">มี</label>
+          </div>
+          <div class="choice">
+            <input type="radio" id="q1-no" name="q1" value="ไม่มี">
+            <label for="q1-no">ไม่มี</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>
+          <span class="q-line"><span class="no" aria-label="ข้อ 2">2</span><span>ใน 2 สัปดาห์ที่ผ่านมา รวมวันนี้ ท่านรู้สึก เบื่อ ทำอะไรไม่เพลิดเพลิน</span></span>
+        </legend>
+        <div class="choices">
+          <div class="choice">
+            <input type="radio" id="q2-yes" name="q2" value="มี">
+            <label for="q2-yes">มี</label>
+          </div>
+          <div class="choice">
+            <input type="radio" id="q2-no" name="q2" value="ไม่มี">
+            <label for="q2-no">ไม่มี</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="progress-block">
+        <div class="progress-text">
+          <span id="count">ตอบแล้ว 0 / 2 ข้อ</span>
+          <span id="hint" aria-live="polite">กรุณาตอบให้ครบทั้ง 2 ข้อ จึงจะดูผลได้</span>
+        </div>
+        <div class="track" id="track" role="progressbar" aria-label="ความคืบหน้า" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0">
+          <div class="fill" id="fill"></div>
+        </div>
+      </div>
+
+      <button type="button" class="btn" id="submitBtn" disabled>ดูผลการประเมิน</button>
+      <p class="note-small">แบบนี้ใช้คัดกรองเบื้องต้นเท่านั้น ไม่ใช่การวินิจฉัยโรค</p>
+    </form>
+  </section>
+
+  <section id="resultSection" aria-label="ผลการประเมิน" hidden>
+    <div class="result" id="result">
+      <p class="label">ผลการประเมิน · แบบประเมินโรคซึมเศร้า (2Q)</p>
+      <h2 id="resultTitle" tabindex="-1"></h2>
+      <dl class="answers" id="resultList"></dl>
+      <p class="note-small" id="resultNote"></p>
+      <div class="actions">
+        <button type="button" class="btn btn-solid" id="resetBtn">ประเมินใหม่</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var QUESTIONS = [
+    { name: 'q1', short: 'รู้สึกหดหู่ เศร้า ท้อแท้ สิ้นหวัง', full: 'ใน 2 สัปดาห์ที่ผ่านมา รวมวันนี้ ท่านรู้สึก หดหู่ เศร้า หรือท้อแท้ สิ้นหวัง' },
+    { name: 'q2', short: 'รู้สึกเบื่อ ทำอะไรไม่เพลิดเพลิน', full: 'ใน 2 สัปดาห์ที่ผ่านมา รวมวันนี้ ท่านรู้สึก เบื่อ ทำอะไรไม่เพลิดเพลิน' }
+  ];
+  var TITLE = 'แบบประเมินโรคซึมเศร้า (2Q)';
+  var RESULT_NORMAL = 'ปกติ ไม่เป็นโรคซึมเศร้า';
+  var RESULT_RISK = 'เป็นผู้มีความเสี่ยงและมีแนวโน้มที่จะเป็นโรคซึมเศร้า';
+  var NOTE_NORMAL = 'แบบนี้ใช้คัดกรองเบื้องต้นเท่านั้น หากยังรู้สึกไม่สบายใจ สามารถปรึกษาผู้เชี่ยวชาญได้เสมอ';
+  var NOTE_RISK = 'แบบนี้ใช้คัดกรองเบื้องต้นเท่านั้น ไม่ใช่การวินิจฉัยโรค ควรพบแพทย์หรือผู้เชี่ยวชาญด้านสุขภาพจิตเพื่อประเมินเพิ่มเติม หรือโทรสายด่วนสุขภาพจิต 1323 (ตลอด 24 ชั่วโมง)';
+
+  var form = document.getElementById('form2q');
+  var submitBtn = document.getElementById('submitBtn');
+  var hint = document.getElementById('hint');
+  var count = document.getElementById('count');
+  var fill = document.getElementById('fill');
+  var track = document.getElementById('track');
+  var formSection = document.getElementById('formSection');
+  var resultSection = document.getElementById('resultSection');
+  var result = document.getElementById('result');
+  var resultTitle = document.getElementById('resultTitle');
+  var resultList = document.getElementById('resultList');
+  var resultNote = document.getElementById('resultNote');
+  var resetBtn = document.getElementById('resetBtn');
+
+  function getAnswers() {
+    return QUESTIONS.map(function (q) {
+      var checked = form.querySelector('input[name="' + q.name + '"]:checked');
+      return checked ? checked.value : null;
+    });
+  }
+
+  function update() {
+    var done = getAnswers().filter(Boolean).length;
+    count.textContent = 'ตอบแล้ว ' + done + ' / 2 ข้อ';
+    fill.style.width = (done / 2 * 100) + '%';
+    track.setAttribute('aria-valuenow', String(done));
+    submitBtn.disabled = done < 2;
+    hint.textContent = done < 2 ? 'กรุณาตอบให้ครบทั้ง 2 ข้อ จึงจะดูผลได้' : 'พร้อมดูผลการประเมินแล้ว';
+  }
+
+  function buildResult(answers) {
+    var atRisk = answers.indexOf('มี') !== -1;
+    var verdict = atRisk ? RESULT_RISK : RESULT_NORMAL;
+
+    result.className = 'result ' + (atRisk ? 'is-risk' : 'is-normal');
+    resultTitle.textContent = verdict;
+    resultNote.textContent = atRisk ? NOTE_RISK : NOTE_NORMAL;
+
+    resultList.textContent = '';
+    QUESTIONS.forEach(function (q, i) {
+      var row = document.createElement('div');
+      row.className = 'row';
+      var dt = document.createElement('dt');
+      dt.textContent = 'ข้อ ' + (i + 1) + ' ' + q.short;
+      var dd = document.createElement('dd');
+      dd.textContent = answers[i];
+      row.appendChild(dt);
+      row.appendChild(dd);
+      resultList.appendChild(row);
+    });
+  }
+
+  form.addEventListener('change', update);
+
+  function onSubmit(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    var answers = getAnswers();
+    if (answers.indexOf(null) !== -1) {
+      hint.textContent = 'กรุณาตอบให้ครบทั้ง 2 ข้อ จึงจะดูผลได้';
+      return;
+    }
+    buildResult(answers);
+    formSection.hidden = true;
+    resultSection.hidden = false;
+    resultTitle.focus();
+    resultSection.scrollIntoView({ block: 'start' });
+  }
+
+  /* ไม่พึ่งการ submit ของฟอร์ม เพราะบางหน้าพรีวิวบล็อกไว้ */
+  submitBtn.addEventListener('click', onSubmit);
+  form.addEventListener('submit', onSubmit);
+
+  resetBtn.addEventListener('click', function () {
+    form.reset();
+    update();
+    resultSection.hidden = true;
+    formSection.hidden = false;
+    window.scrollTo({ top: 0 });
+    var first = document.getElementById('q1-yes');
+    if (first) first.focus();
+  });
+
+  update();
+})();
+</script>
+
+</body></html>
